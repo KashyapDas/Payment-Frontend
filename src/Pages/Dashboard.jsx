@@ -1,21 +1,27 @@
-import React from 'react'
-import SearchBar from "../components/SearchBar"
-import DashboardHeader from '../components/DashboardHeader'
+import { useLocation } from "react-router-dom";
+
 
 const Dashboard = () => {
+
+  const location = useLocation();
+  const username = location.state?.username;
+  
   return (
-    <div>
-      <DashboardHeader
-        name="Rahul"
-        title="Dashboard"
-        subtitle="Track your payments and balances at a glance."
-        actions={
-          <button className="rounded-xl bg-black px-5 py-2.5 text-sm font-semibold text-white">
-            New Payment
-          </button>
-        }
-      />
-      <SearchBar />
+    <div className="p-2 mt-2">
+      {/* dashboard greetings */}
+       <div className="space-y-1 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-extrabold tracking-tight text-black sm:text-4xl">
+          Welcome back, {username}
+        </h1>
+        <h3 className="text-xs font-medium text-neutral-600 lg:text-md">
+          Here's what's happening with your account today.
+        </h3>
+      </div>
+
+      {/* search bar */}
+
+
+
     </div>
   )
 }

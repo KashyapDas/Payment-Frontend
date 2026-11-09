@@ -19,6 +19,7 @@ export default function Signup() {
 
   const navigate = useNavigate();
 
+  // make the call to BE and check if the user exist or not
   const submitData = async (username, email, password)=>{
     try{
         const result = await axios.post(
@@ -33,14 +34,14 @@ export default function Signup() {
         }
         if(result.status === 200){
           setUserExists("");
-          navigate("/dashboard");
+          navigate("/dashboard", { state: { username: result.data.username } });
         }
     }catch(error){
       if(error.response){
         const {status} = error.response;
         switch (status) {
           case 409:
-            setUserExists("User already exists");
+            setUserExists("Username or email already exists");
             break;
           case 400:
             navigate("/signup");
@@ -60,13 +61,26 @@ export default function Signup() {
     
   }
 
-  const handleSignUp = async ()=>{
-    username.current.value != "" ? setUsernameError("") : setUsernameError("Username must be required");
-    email.current.value != "" ? setEmailError("") : setEmailError("Email must be required");
-    password.current.value != "" ? setPasswordError("") : setPasswordError("Password must be required");
-    // call the api from the backend
+  const handleSignUp = async () => {
+    const name = username.current.value.trim();
+    const mail = email.current.value.trim();
+    const pass = password.current.value;
+
+    const newUsernameError = name === "" ? "Username is required" : "";
+    const newEmailError = mail === "" ? "Email is required" : "";
+    const newPasswordError = pass.trim() === "" ? "Password is required" : "";
+
+    setUsernameError(newUsernameError);
+    setEmailError(newEmailError);
+    setPasswordError(newPasswordError);
+
+    // block the request if any field has an error
+    if (newUsernameError || newEmailError || newPasswordError) {
+      return;
+    }
+
     await submitData(username.current.value, email.current.value, password.current.value);
-  } 
+  };
 
   return (
     <div className="flex min-h-dvh flex-col bg-white text-black">
