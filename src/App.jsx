@@ -6,6 +6,7 @@ import Signup from "./Pages/Singup";
 import Signin from "./Pages/Singin";
 import Dashboard from "./Pages/Dashboard";
 import Sendmoney from "./Pages/Sendmoney";
+import SomethingWentWrong from "./Pages/SomethingWentWrong";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Route path='/signin' element={<Signin />} />
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='/sendmoney' element={<Sendmoney />} />
+      <Route path='/error' element={<SomethingWentWrong />} />
     </Routes>
     
   )

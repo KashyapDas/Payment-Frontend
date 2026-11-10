@@ -28,7 +28,7 @@ export default function Signup() {
             username :  username,
             email : email,
             password : password
-        });
+        }, {withCredentials : true});
         if(!result){
           console.log("Missmatch issue");
         }
